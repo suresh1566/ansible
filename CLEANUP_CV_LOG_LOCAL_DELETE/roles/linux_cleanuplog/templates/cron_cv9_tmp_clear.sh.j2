@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CV_PORT=$(/sbin/ss -lnt | /bin/grep "5005" | /bin/sed -n 's/^.*5005/5005/gp' | /bin/awk '{print $1}')
+HSTNM="$(/bin/hostname)"
+HSTIP="$(/bin/hostname -I)"
+CV_VCNF="{{ CV9_DIR.stdout }}/class/common/common.jar"
+CVSV=$(/bin/unzip -p ${CV_VCNF} META-INF/MANIFEST.MF | /bin/grep "Axiom-Version" | /bin/awk '{print $NF}')
+MSUB=$(/bin/echo -e "CV Critical Alert: ${HSTNM}")
+MBDY=$(/bin/echo -e "Hello Team,\nThe 'Controller View' server is not functioning correctly. Kindly take a look at this server and fix the issue.\n\nServer Details:\n==========XXXXX==========\nCV Server Name: ${HSTNM}\nCV Server IP: ${HSTIP}\nCV Server Version: ${CVSV}\n==========XXXXX==========\n\nBest Regards,\nCV Monitoring")
+
+/etc/init.d/"{{ CV9_SERVICE.stdout }}" stop
+/bin/sleep 30
+/bin/rm -rf {{ CV9_TMP_DIR.stdout }}/*
+/etc/init.d/"{{ CV9_SERVICE.stdout }}" start
+/bin/sleep 120
+
+if [ "${CV_PORT}" == "5005" ]; then
+        #/bin/echo "Both CV and Tomcat services are running"
+        /bin/echo "The CV services is running" | /bin/mail -v -s "CV Server Alert: ${HSTNM}" -r cvmonitor@axiomsl.com suresh.sahoo@adenza.com
+else
+        #/bin/echo "${MBDY}" | mail -v -s "${MSUB}" -r ldn-vcenter@axiomsl.com suresh.sahoo@adenza.com
+        /bin/echo "${MBDY}" | /bin/mail -v -s "${MSUB}" -r cvmonitor@axiomsl.com suresh.sahoo@adenza.com
+fi

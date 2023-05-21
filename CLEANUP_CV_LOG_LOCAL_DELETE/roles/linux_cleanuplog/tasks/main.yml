@@ -1,0 +1,330 @@
+---
+ - name: Register axiom user home directory
+   shell: getent passwd axiom | awk -F ':' '{print $6}'
+   register: USR_HOME
+ - set_fact:
+     CV_USR_HOME: "{{ USR_HOME.stdout }}"
+
+ - name: Register a common port for CV10
+   shell: ss -lnt | grep "9999" | sed -n 's/^.*9999/9999/gp' | awk '{print $1}'
+   register: CV10_PORT
+ - set_fact:
+     CV10S_PORT: "{{ CV10_PORT.stdout }}"
+
+ - name: Register a common port for CV9
+   shell: ss -lnt | grep "5005" | sed -n 's/^.*5005/5005/gp' | awk '{print $1}'
+   register: CV9_PORT
+ - set_fact:
+     CV9S_PORT: "{{ CV9_PORT.stdout }}"
+
+ - name: Register a common port for Tomcat
+   shell: ss -lnt | grep "8000" | sed -n 's/^.*8000/8000/gp' | awk '{print $1}'
+   register: TOMCAT_PORT
+ - set_fact:
+     TM_PORT: "{{ TOMCAT_PORT.stdout }}"
+
+ - name: Register Tomcat service
+   shell: systemctl list-units | grep Tomcat | grep active | awk -F ' ' '{print $1}'
+   register: TOMCAT_SERVICE
+   when: (TM_PORT == "8000")
+
+ - name: Register Tomcat installation directory
+   shell: systemctl cat "{{ TOMCAT_SERVICE.stdout }}" | grep "ExecStart=" | awk -F '=' '{print $2}' | awk -F '/bin/startup.sh' '{print $1}'
+   register: TOMCAT_DIR
+   when: (TM_PORT == "8000")
+
+ - name: Register Tomcat log directory
+   shell: cat "{{ TOMCAT_DIR.stdout }}"/conf/logging.properties | grep "1catalina*.*logging.FileHandler.pattern" | awk -F "=" '{print $NF}'| tr -d ' ' | sed -n 's|catalina%g.log||gp'
+   register: TOMCAT_LOG_DIR
+   when: (TM_PORT == "8000")
+
+ - name: Check to see if UIKIT has already been installed on the server
+   stat:
+     path: "{{ TOMCAT_DIR.stdout }}/webapps/ui_kit.war"
+   register: UIKIT_WAR
+   when: (TM_PORT == "8000")
+
+ - name: Register absolute path for parameters.cfg file for Tomcat
+   shell: find "{{ TOMCAT_DIR.stdout }}"/ -type f -name parameters.cfg
+   register: PARAMETERS_CFG
+   when: (TM_PORT == "8000")
+
+ - name: Register TOMCAT TMP directory
+   shell: grep "^tmp.dir=" "{{ PARAMETERS_CFG.stdout }}" | awk -F '=' '{print $NF}'
+   register: TOMCAT_TMP_DIR
+   when: (TM_PORT == "8000") and UIKIT_WAR.stat.exists == False
+
+ - name: Register CV9 service
+   shell: grep -ir "AXIOM_HOME=" /etc/init.d/ | awk -F ':' '{print $1}' | awk -F '/' '{print $NF}'
+   register: CV9_SERVICE
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Register CV10 service
+   shell: systemctl list-units | grep AxiomServer | grep active | awk -F ' ' '{print $1}'
+   register: CV10_SERVICE
+   when: (CV10S_PORT == "9999")
+
+ - name: Register CV9 installation directory
+   shell: cat /etc/init.d/"{{ CV9_SERVICE.stdout }}" | grep "AXIOM_HOME=" | awk -F '=' '{print $NF}'
+   register: CV9_DIR
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Register CV10 installation directory
+   shell: systemctl cat "{{ CV10_SERVICE.stdout }}" | grep "ExecStart=" | awk -F '=' '{print $2}' | awk -F '/server-bin' '{print $1}'
+   register: CV10_DIR
+   when: (CV10S_PORT == "9999")
+
+ - name: Register CV9 log directory
+   shell: cat "{{ CV9_DIR.stdout }}"/bin/set_env.sh | grep "LOG_DIR=" | awk -F '"' '{print $2}'
+   register: CV9_LOG_DIR
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Register CV10 log directory
+   shell: cat "{{ CV10_DIR.stdout }}"/server-config/server.properties | grep "log.dir=" | awk -F '=' '{print $NF}'
+   register: CV10_LOG_DIR
+   when: (CV10S_PORT == "9999")
+
+ - name: Register CV9 backup directory
+   shell: cat "{{ CV9_DIR.stdout }}"/bin/set_env.sh | grep "ARCHIVAL_DIR=" | awk -F '"' '{print $2}'
+   register: CV9_BKP_DIR
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Register CV10 backup directory
+   shell: cat "{{ CV10_DIR.stdout }}"/server-config/client-install.properties | grep "backup.dir=" | awk -F '=' '{print $NF}'
+   register: CV10_BKP_DIR
+   when: (CV10S_PORT == "9999")
+
+ - name: Register CV9 TMP directory
+   shell: cat "{{ CV9_DIR.stdout }}"/bin/set_env.sh | grep "TEMP_DIR=" | awk -F '"' '{print $2}'
+   register: CV9_TMP_DIR
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Register CV10 TMP directory
+   shell: cat "{{ CV10_DIR.stdout }}"/server-config/server.properties | grep "tmp.dir=" | awk -F '=' '{print $NF}'
+   register: CV10_TMP_DIR
+   when: (CV10S_PORT == "9999")
+
+ - name: Create a cron job to delete the CV10 log files from the CV10 servers that are older than 14 days.
+   template:
+     src: "cron_CV10_clearlog.sh.j2"
+     dest: "{{ CRON_DAILY_DIR }}/cv10_clearlog.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (CV10S_PORT == "9999") 
+
+ - name: Create a cron job to delete the CV10 server's additional backup log files every hour.
+   template:
+     src: "cron_cv10_delete_svrlog_back_file.sh.j2"
+     dest: "{{ CRON_HOURLY_DIR }}/cv10_delete_svrlog_back_file.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (CV10S_PORT == "9999") 
+
+ - name: Create a cron job to delete the CV9 server's additional backup log files every hour.
+   template:
+     src: "cron_cv9_delete_svrlog_back_file.sh.j2"
+     dest: "{{ CRON_HOURLY_DIR }}/cv9_delete_svrlog_back_file.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Create a cron job to delete CV9 log files from the CV9 servers that are older than 14 days.
+   template:
+     src: "cron_cv9_clearlog.sh.j2"
+     dest: "{{ CRON_DAILY_DIR }}/cv9_clearlog.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999")
+
+ - name: Create a cron job to clean axiom user's home directory from the CV10 servers that are older than 14 days.
+   template:
+     src: "cron_cv10_axiom_home_clearlog.sh.j2"
+     dest: "{{ CRON_DAILY_DIR }}/cv10_axiom_home_clearlog.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (CV10S_PORT == "9999") and (CV_USR_HOME != "/opt/axiom") 
+
+ - name: Create a cron job to clean axiom user's home directory from the CV9 servers that are older than 14 days.
+   template:
+     src: "cron_cv9_axiom_home_clearlog.sh.j2"
+     dest: "{{ CRON_DAILY_DIR }}/cv9_axiom_home_clearlog.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999") and (CV_USR_HOME != "/opt/axiom") 
+
+ - name: Create a cron job to delete the Tomcat log files from the CV servers that are older than 14 days.
+   template:
+     src: "cron_tomcat_log.sh.j2"
+     dest: "{{ CRON_DAILY_DIR }}/tomcat_clearlog.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+   when: (TM_PORT == "8000") 
+
+# - name: Truncate the tomcat catalina.out file weekly.
+#   template:
+#     src: "catalina_truncate.sh.j2"
+#     dest: "{{ CRON_WEEKLY_DIR }}/catalina_truncate.sh"    
+#     mode: "0755"
+#   notify:
+#     - Restart crond service
+#   when: (TM_PORT == "8000") 
+
+# - name: Create a cron job to delete the temporary files from the Tomcat servers that are older than 20 days.
+#   template:
+#     src: "cron_tomcat_tmp_clear.sh.j2"
+#     dest: "{{ CRON_DAILY_DIR }}/tomcat_tmp_clear.sh"    
+#     mode: "0755"
+#   notify:
+#     - Restart crond service
+#   when: (TM_PORT == "8000") and UIKIT_WAR.stat.exists == False
+
+# - name: Create a cron job to delete the temporary files from the Tomcat servers where UIkit is installed that are older than 20 days.
+#   template:
+#     src: "cron_tomcat_uikit_tmp_clear.sh.j2"
+#     dest: "{{ CRON_DAILY_DIR }}/tomcat_uikit_tmp_clear.sh"    
+#     mode: "0755"
+#   notify:
+#     - Restart crond service
+#   when: (TM_PORT == "8000") and UIKIT_WAR.stat.exists == True
+
+# - name: Create a cron job to delete the temporary files from the CV10 servers that are older than 20 days.
+#   template:
+#     src: "cron_cv10_tmp_clear.sh.j2"
+#     dest: "{{ CRON_DAILY_DIR }}/cv10_tmp_clear.sh"    
+#     mode: "0755"
+#   notify:
+#     - Restart crond service
+#   when: (CV10S_PORT == "9999") 
+
+# - name: Create a cron job to delete the temporary files from the CV9 servers that are older than 20 days.
+#   template:
+#     src: "cron_cv9_tmp_clear.sh.j2"
+#     dest: "{{ CRON_DAILY_DIR }}/cv9_tmp_clear.sh"    
+#     mode: "0755"
+#   notify:
+#     - Restart crond service
+#   when: (CV9S_PORT == "5005") and (CV10S_PORT != "9999") 
+
+ - name: Create a cron job to clean project files from /opt/axiom from the CV servers that are older than 14 days.
+   template:
+     src: "cron_axiom_project_file_clean.sh.j2"
+     dest: "{{ CRON_DAILY_DIR }}/axiom_project_file_clean.sh"    
+     mode: "0755"
+   notify:
+     - Restart crond service
+
+ - name: Create a cron job to delete the deprecated scripts for CV9, CV10, and Tomcat.
+   file:
+     path: "{{ item }}"
+     state: absent    
+   with_items:
+     - "{{ CRON_DAILY_DIR }}/tomcat_tmp_clear.sh" 
+     - "{{ CRON_DAILY_DIR }}/cv10_tmp_clear.sh" 
+     - "{{ CRON_DAILY_DIR }}/cv9_tmp_clear.sh" 
+     - "{{ CRON_DAILY_DIR }}/tomcat_uikit_tmp_clear.sh" 
+     - "{{ CRON_WEEKLY_DIR }}/catalina_truncate.sh"    
+   notify:
+     - Restart crond service
+   when: (CV9S_PORT == "5005") or (CV10S_PORT == "9999") 
+
+ - name: Set Timezone to UTC on CV server 
+   shell: "{{ item }}"
+   loop:
+     - "/bin/timedatectl set-ntp true"
+     - "/bin/timedatectl set-timezone UTC"
+   notify:
+     - Restart ntp service
+   when: (CV9S_PORT == "5005") or (CV10S_PORT == "9999") 
+
+ - name: Install mailx package to send an email to sysadmin if either CV or Tomcat server does not start 
+   yum:
+     name: mailx
+     state: present
+   when: ansible_os_family == "RedHat"
+
+ - name: Edit the mail.rc configuration file to send email using ny-postfix.global.axiomsl.com gateway server 
+   lineinfile:
+     path: /etc/mail.rc
+     state: present
+     backup: true
+     line: "set smtp=ny-postfix.global.axiomsl.com"
+     owner: root
+     group: root
+     mode: 0644
+   when: ansible_os_family == "RedHat"
+
+# Create a cron job to delete the temp files of CV10 and Tomcat, clear catalina logs, and send an email to sysadmin team if CV and tomcat service does not start ---> Start
+ - name: Create a directory to copy CV10 and tomcat temp files deletion script  
+   file:
+     path: /usr/local/.script
+     state: directory
+     owner: root
+     group: root    
+     mode: "0755"
+   when: (CV10S_PORT == "9999") 
+
+ - name: Copy the temp files deletion script 
+   template:
+     src: "cron_cv10_tomcat_tmp_clear.sh.j2"
+     dest: "/usr/local/.script/cv10_tomcat_tmp_clear.sh"    
+     owner: root
+     group: root    
+     mode: "0755"
+   when: (CV10S_PORT == "9999") 
+
+ - name: Create a cron job to execute temp file deletion script 
+   lineinfile:
+     path: /etc/cron.d/cv_tomcat_tmp_clean
+     state: present
+     backup: true
+     line: "*/10 * * * * root /bin/bash /usr/local/.script/cv10_tomcat_tmp_clear.sh"
+     create: yes
+     owner: root
+     group: root
+     mode: 0644
+   notify:
+     - Restart crond service
+   when: (CV10S_PORT == "9999") 
+# Create a cron job to delete the temp files of CV10 and Tomcat, clear catalina logs, and send an email to sysadmin team if CV and tomcat service does not start ---> End
+
+# Create a cron job to delete the temp files of CV9 and send an email to sysadmin team if the CV service does not start ---> Start
+ - name: Create a directory to copy CV9 temp files deletion script  
+   file:
+     path: /usr/local/.script
+     state: directory
+     owner: root
+     group: root    
+     mode: "0755"
+   when: (CV9S_PORT == "5005") 
+
+ - name: Copy the temp files deletion script 
+   template:
+     src: "cron_cv9_tmp_clear.sh.j2"
+     dest: "/usr/local/.script/cv9_tmp_clear.sh"    
+     owner: root
+     group: root    
+     mode: "0755"
+   when: (CV9S_PORT == "5005") 
+
+ - name: Create a cron job to execute temp file deletion script 
+   lineinfile:
+     path: /etc/cron.d/cv_tmp_clean
+     state: present
+     backup: true
+     line: "*/10 * * * * root /bin/bash /usr/local/.script/cv9_tmp_clear.sh"
+     create: yes
+     owner: root
+     group: root
+     mode: 0644
+   notify:
+     - Restart crond service
+   when: (CV9S_PORT == "5005") 
+#   when: (TM_PORT == "8000") and UIKIT_WAR.stat.exists == False
+# Create a cron job to delete the temp files of CV9 and send an email to sysadmin team if the CV service does not start ---> End

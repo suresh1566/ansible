@@ -1,0 +1,8 @@
+#!/bin/bash
+
+find {{ CV10_LOG_DIR.stdout }}/*/ -maxdepth 50 -type f -mtime +14 -delete
+find {{ CV10_LOG_DIR.stdout }}/ -name "server*.*" -type f -mtime +14 -delete
+find {{ CV10_LOG_DIR.stdout }}/ -name "webapp*.*" -type f -mtime +14 -delete
+find {{ CV10_LOG_DIR.stdout }}/ -name "client*.log" -type f -mtime +14 -delete
+find {{ CV10_LOG_DIR.stdout }}/ -name "sqlConsole*.*" -type f -mtime +14 -delete
+find {{ CV10_LOG_DIR.stdout }}/ -name "taskjvm*.*" -type f -mtime +14 -delete

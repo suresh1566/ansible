@@ -1,0 +1,230 @@
+[CV_LCL]
+192.168.56.10 ansible_connection=ssh ansible_port=22 ansible_user=root ansible_password=Abcd@123 
+192.168.56.15 ansible_connection=ssh ansible_port=22 ansible_user=root ansible_password=Abcd@123 
+#192.168.56.11 ansible_connection=ssh ansible_port=22 ansible_user=root ansible_password=Abcd@123 
+#192.168.56.21 ansible_connection=ssh ansible_port=22 ansible_user=root ansible_password=Abcd@123 
+#192.168.56.22 ansible_connection=ssh ansible_port=22 ansible_user=root ansible_password=Abcd@123 
+
+[CV_LTST]
+cv9-l-emeacap-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeacap-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CRON_DEPLOY]
+cv9-l-usliq-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usfinreg-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-fcrs-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-cicdtest1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev7s.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev6f.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-hrk-xbrl-qa3.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-devsol-09.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-napd-qa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-xdev-postgres-2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-na.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-napd.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeacap-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeacap-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeafin-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV_UI]
+cv9-l-usliq-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-euliq-dev-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv-l-sol-rt01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-euliq-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usfinreg-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV]
+cv9-l-usliq-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-euliq-dev-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv-l-sol-rt01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-euliq-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usfinreg-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev-latam10.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev6f.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev7s.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-cicdtest1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-fcrs-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-cap-calypso-collab.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-devsol-08.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-devsol-09.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-devsol-13.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-asiaqa-sol1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-xbrl-asiaqa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-hrk-xbrl-qa4.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-asiaqa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-co.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactax-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactemplates-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactemplates-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#ny-cv-teradata.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-napd-qa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-napd-release.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#ny-cv-tier1-support.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#ny-cv10-training-dev.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#ny-cv10-spark.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+#######################CV10#######################
+[CV_HRK]
+hrk-cv-dev-latam10.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev6f.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev7s.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev8dbh.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev9dbh.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV_HRK_EXTRA]
+#hrk-cv-mvt10ms.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-qa-dbh2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-qa-latam10.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#hrk-cv-qa-mssql1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-qa-mvt.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-qa-mvt2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-qa-udf10.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-qa301.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-training10.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-xbrl8.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-xbrl11.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv10-napd-dev.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#hrk-cv10-xbrlemea.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV_LDN]
+ldn-cv10-3.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-cicdtest0.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-cicdtest1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-fcrs-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-cap-calypso-collab.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-cap-sol.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV_LDN_EXTRA]
+#ldn-cv10-l-de-udem.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-fin-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-gsd-dev02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-liq-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-liq-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-migration.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-product-inventory.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-rcs-postgres01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-rgn-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-rgn-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-sol-perf01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-sol-rt04.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-support01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-tnt-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-tnt-dev02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-l-xbrl-emea.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-pre-sales.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ldn-cv10-sales-poc.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV_SG]
+#sg-ba-02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo # Structure
+sg-devsol-08.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-devsol-09.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-devsol-13.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#sg-devtempl-06.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+#sg-mcs-02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-mng-02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+sg-pres-02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+#######################CV10#######################
+
+[CV9_AP]
+cv9-asiaqa-sol1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-xbrl-asiaqa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo			
+[CV9_HRK]
+cv9-hrk-asiauat.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo	
+cv9-hrk-qa-asia-ut.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-hrk-xbrl-qa1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-hrk-xbrl-qa2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-hrk-xbrl-qa3.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-hrk-xbrl-qa4.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-asiaqa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-co.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-dev3.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-doc.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-hk.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-holding.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-ifrs.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-japan.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-latam.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+hrk-cv-lcr.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[CV9_LDN]
+cv9-l-amercap-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-amercap-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apaccap-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apaccap-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactax-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactax-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactemplates-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-apactemplates-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeafin-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeargn-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeargn-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeatax-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeatax-dev02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeatax-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeatemplates-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-emeatemplates-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-euliq-dev-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-euliq-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-gsd-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-gsd-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-support-orcl01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-templates-repo01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-tnt-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-tnt-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usbd-dev-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usbd-qa-01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usfinreg-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usfinreg-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usliq-dev01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv9-l-usliq-qa01.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+cv10-l-support-orcl02.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+[NY_CV10]
+ny-cv10-na.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-na-prior1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-na-prior2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-napd.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-latam.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-doc.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-training-1.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-training-demo.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-finance.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-xdev-postgres.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-xdev-postgres-2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-cab-staging.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-napd-cloud.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-training-products.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-training-poc.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-tier1-support.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-training-dev.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-spark.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-liq.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-amerps.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-clientpostgres.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-latam-postgres.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-mxdemo.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-vshalay.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-dotman.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-axiom-training.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-sureshsahoo.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+
+
+[NY_CV9]
+ny-cv-training-2.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-demo.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-darut.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-devpm.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-teradata.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-napd-qa.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-napd-release.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-xdev-postgres.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-latest.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv9-cab-demo.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv9-cab-staging.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-napd-uat.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-dev-sybase.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv10-hr.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-training-products.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo
+ny-cv-zdev.global.axiomsl.com ansible_connection=ssh ansible_port=22 ansible_user=sureshsahoo

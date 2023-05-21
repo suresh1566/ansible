@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find {{ TOMCAT_LOG_DIR.stdout }} -name "localhost*.*" -type f -mtime +14 -delete 

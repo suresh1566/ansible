@@ -1,0 +1,30 @@
+#!/bin/bash
+
+CV_PORT=$(ss -lnt | grep "9999" | sed -n 's/^.*9999/9999/gp' | awk '{print $1}')
+TM_PORT=$(ss -lnt | grep "8000" | sed -n 's/^.*8000/8000/gp' | awk '{print $1}')
+HSTNM="$(hostname)"
+HSTIP="$(hostname -I)"
+CV_VCNF="{{ CV10_DIR.stdout }}/server-bin/bundle_packages/static/core/core.xml"
+CVSV=$(grep 'name="name"' ${CV_VCNF} | tr -d '<\>\/\"' | awk '{print $NF}' | sed -n 's/value=core.//gp')
+MSUB=$(echo -e "CV Critical Alert: ${HSTNM}")
+MBDY=$(echo -e "Hello Team,\nThe 'Controller View' server is not functioning correctly. Kindly take a look at this server and fix the issue.\n\nServer Details:\n==========XXXXX==========\nCV Server Name: ${HSTNM}\nCV Server IP: ${HSTIP}\nCV Server Version: ${CVSV}\n==========XXXXX==========\n\nBest Regards,\nCV Monitoring")
+
+systemctl stop "{{ TOMCAT_SERVICE.stdout }}"
+systemctl stop "{{ CV10_SERVICE.stdout }}"
+sleep 10
+rm -rf {{ TOMCAT_TMP_DIR.stdout }}/*
+rm -rf {{ CV10_TMP_DIR.stdout }}/*
+> {{ TOMCAT_LOG_DIR.stdout }}catalina.out
+sleep 10
+systemctl start "{{ CV10_SERVICE.stdout }}"
+sleep 120
+systemctl start "{{ CV10_SERVICE.stdout }}"
+sleep 120
+
+if [ "${TM_PORT}" == "8000" ] && [ "${CV_PORT}" == "9999" ]; then
+        #echo "Both CV and Tomcat services are running"
+	echo "Both CV and Tomcat services are running" | mail -v -s "CV Server Alert: ${HSTNM}" -r cvmonitor@axiomsl.com suresh.sahoo@adenza.com
+else
+        #echo "${MBDY}" | mail -v -s "${MSUB}" -r ldn-vcenter@axiomsl.com suresh.sahoo@adenza.com
+        echo "${MBDY}" | mail -v -s "${MSUB}" -r cvmonitor@axiomsl.com suresh.sahoo@adenza.com
+fi

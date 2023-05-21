@@ -1,0 +1,24 @@
+#!/bin/bash
+
+cv_log_dir="{{ CV10_LOG_DIR.stdout }}"
+count=0
+
+test -d ${cv_log_dir} || exit 1
+
+if [ "$(ls -ltrh ${cv_log_dir}/server.*.bak* | wc -l)" -le "9" ]; then
+        exit 1
+fi
+
+
+for log_file in $(ls -t ${cv_log_dir}/server.*.bak*); do
+count=$((count + 1))
+if [ "${count}" -gt 9 ]; then
+rm -f "$log_file"
+fi
+done
+
+rename_count=9
+for log_file in $(ls -rt ${cv_log_dir}/server.*.bak*); do
+mv ${log_file} ${cv_log_dir}/server.en.log.${RANDOM}.bak.${rename_count}
+rename_count=$((rename_count - 1))
+done

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find /opt/axiom/ -maxdepth 50 -type f {{ EXCLUDE_DIRS }} {{ INCLUDE_EXT }} -mtime +14 -delete 
