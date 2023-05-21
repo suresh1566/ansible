@@ -1,0 +1,10 @@
+---
+ - name: Cleanup log, temporary, and project files from the CV server
+   #hosts: CRON_DEPLOY
+   #hosts: all
+   hosts: CV_LCL
+   #hosts: CV_LTST
+   gather_facts: true
+   become: true
+   roles:
+     - role: linux_cleanuplog

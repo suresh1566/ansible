@@ -1,0 +1,11 @@
+---
+# handlers file for ./roles/logrotate
+ - name: Restart crond service
+   service:
+     name: crond
+     state: restarted 
+
+ - name: Restart ntp service
+   service:
+     name: chronyd
+     state: restarted 

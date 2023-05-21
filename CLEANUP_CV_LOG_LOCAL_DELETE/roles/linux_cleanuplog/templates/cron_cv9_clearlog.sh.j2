@@ -1,0 +1,6 @@
+#!/bin/bash
+
+find {{ CV9_LOG_DIR.stdout }}/*/ -maxdepth 50 -type f -mtime +14 -delete 
+find {{ CV9_LOG_DIR.stdout }}/ -name "server*.*" -type f -mtime +14 -delete
+find {{ CV9_LOG_DIR.stdout }}/ -name "startup*.*" -type f -mtime +14 -delete
+find {{ CV9_LOG_DIR.stdout }}/ -name "sqlConsole*.*" -type f -mtime +14 -delete
