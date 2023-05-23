@@ -1,9 +1,6 @@
 ---
  - name: Cleanup log, temporary, and project files from the CV server
-   #hosts: CRON_DEPLOY
-   #hosts: all
-   hosts: CV_LCL
-   #hosts: CV_LTST
+   hosts: all
    gather_facts: true
    become: true
    roles:
